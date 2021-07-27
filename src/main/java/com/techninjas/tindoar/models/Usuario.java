@@ -1,6 +1,8 @@
 package com.techninjas.tindoar.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -41,6 +43,15 @@ public class Usuario {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+    
+    @OneToMany(mappedBy="user") //certo
+    private List<Produto> produtos = new ArrayList<>();
+    
+    @OneToMany(mappedBy="doador")
+    private List<Doacao> doacoes = new ArrayList<>();
+    
+    @OneToMany(mappedBy="recebedor")
+    private List<Doacao> recebidos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -146,4 +157,30 @@ public class Usuario {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<Doacao> getDoacoes() {
+		return doacoes;
+	}
+
+	public void setDoacoes(List<Doacao> doacoes) {
+		this.doacoes = doacoes;
+	}
+
+	public List<Doacao> getRecebidos() {
+		return recebidos;
+	}
+
+	public void setRecebidos(List<Doacao> recebidos) {
+		this.recebidos = recebidos;
+	}
+	
+	
 }
