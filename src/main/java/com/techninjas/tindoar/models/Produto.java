@@ -2,8 +2,10 @@ package com.techninjas.tindoar.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +48,7 @@ public class Produto implements Serializable {
 	
 	private String descricao;
 	
-	private LocalDate dataCadastro;
+	private LocalDateTime dataCadastro;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -120,11 +122,11 @@ public class Produto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataCadastro() {
+	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -141,12 +143,11 @@ public class Produto implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Produto(Integer idProduto, Usuario user, List<Doacao> doacao, String nome, String estado, String status, String categoria,
-			String cidade, String fotos, String descricao, LocalDate dataCadastro) {
+	public Produto(Integer idProduto, Usuario user, String nome, String estado, String status, String categoria,
+			String cidade, String fotos, String descricao, LocalDateTime dataCadastro) {
 		super();
 		this.idProduto = idProduto;
 		this.user = user;
-		this.doacao = doacao;
 		this.nome = nome;
 		this.estado = estado;
 		this.status = status;
@@ -159,27 +160,16 @@ public class Produto implements Serializable {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idProduto == null) ? 0 : idProduto.hashCode());
-		return result;
+		return Objects.hash(getIdProduto());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj) return true;
+		if (!(obj instanceof Produto)) return false;
+		if (getClass() != obj.getClass()) return false;
 		Produto other = (Produto) obj;
-		if (idProduto == null) {
-			if (other.idProduto != null)
-				return false;
-		} else if (!idProduto.equals(other.idProduto))
-			return false;
-		return true;
+		return getIdProduto().equals(other.getIdProduto());
 	}
 	
 	

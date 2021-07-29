@@ -1,5 +1,6 @@
 package com.techninjas.tindoar.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class ProdutoService {
 	
 	@Autowired
 	private UsuarioRepository userRepository;
+	
 
 	public Produto findById(Integer idProduto) {
 		Optional<Produto> obj = repository.findById(idProduto);
@@ -35,17 +37,33 @@ public class ProdutoService {
 		return repository.findAll();
 	}
 
-	public @Valid Produto create(String username_doador, @Valid Produto obj) {
+	public Produto create(String username_doador, Produto obj) {
 		obj.setIdProduto(null);
 		Usuario user = userRepository.findByUsername(username_doador).orElseThrow(() -> new 
 				UsernameNotFoundException("Usuário não encontrado com username: " + username_doador));
 		obj.setUser(user);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		obj.setDataCadastro(localDateTime);
 		return repository.save(obj);
 	}
 
-	public Produto update(Integer idProduto, ProdutoDTO objDTO) {
-		Produto obj = findById(idProduto);
-		return repository.save(obj);
+	public Produto update(Integer idProduto, Produto obj) {
+		Produto newObj = findById(idProduto);
+		updateData(newObj, obj);
+		return repository.save(newObj);
+	}
+
+	private void updateData(Produto newObj, Produto obj) {
+		newObj.setUser(obj.getUser());
+		newObj.setNome(obj.getNome());
+		newObj.setEstado(obj.getEstado());
+		newObj.setStatus(obj.getStatus());
+		newObj.setCategoria(obj.getCategoria());
+		newObj.setCidade(obj.getCidade());
+		newObj.setFotos(obj.getFotos());
+		newObj.setDescricao(obj.getDescricao());
+		LocalDateTime localDateTime = LocalDateTime.now();
+		newObj.setDataCadastro(localDateTime);
 	}
 
 	public void delete(Integer idProduto) {

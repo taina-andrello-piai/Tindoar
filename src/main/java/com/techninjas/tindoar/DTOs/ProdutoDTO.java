@@ -2,6 +2,7 @@ package com.techninjas.tindoar.DTOs;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.techninjas.tindoar.models.Produto;;
 
@@ -27,7 +28,7 @@ public class ProdutoDTO implements Serializable {
 	
 	private String descricao;
 	
-	private LocalDate dataCadastro;
+	private LocalDateTime dataCadastro;
 
 	public ProdutoDTO() {
 		super();
@@ -119,11 +120,11 @@ public class ProdutoDTO implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataCadastro() {
+	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 	
